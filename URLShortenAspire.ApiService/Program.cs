@@ -1,3 +1,5 @@
+using Microsoft.AspNetCore.HttpLogging;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add service defaults & Aspire components.
@@ -6,34 +8,29 @@ builder.AddServiceDefaults();
 // Add services to the container.
 builder.Services.AddProblemDetails();
 
+builder.Services.AddHttpLogging(logging =>
+{
+	logging.LoggingFields = HttpLoggingFields.All;
+	logging.RequestBodyLogLimit = 4096;
+	logging.ResponseBodyLogLimit = 4096;
+	logging.CombineLogs = true;
+});
+
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+app.UseHttpLogging();
 app.UseExceptionHandler();
 
-var summaries = new[]
+app.MapGet("/{short}", (string url) =>
 {
-    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-};
+	return url;
+});
 
-app.MapGet("/weatherforecast", () =>
+app.MapGet("/shorten", (string url) =>
 {
-    var forecast = Enumerable.Range(1, 5).Select(index =>
-        new WeatherForecast
-        (
-            DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-            Random.Shared.Next(-20, 55),
-            summaries[Random.Shared.Next(summaries.Length)]
-        ))
-        .ToArray();
-    return forecast;
+	return url;
 });
 
 app.MapDefaultEndpoints();
 
 app.Run();
-
-record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
-{
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-}

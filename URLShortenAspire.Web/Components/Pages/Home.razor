@@ -1,5 +1,6 @@
-﻿@page "/short"
+﻿@page "/"
 @inject ILogger<Program> Logger
+@inject BackendApiClient API
 
 <PageTitle>URLShorten</PageTitle>
 
@@ -12,26 +13,24 @@
 			</div>
 			<div class="mb-3" style="@(IsShow ? "" : "display:none")">
 				<label for="exampleFormControlTextarea1" class="form-label">Result</label>
-				<textarea disabled class="form-control" id="result-area" style="resize:none" rows="3"></textarea>
+				<textarea disabled class="form-control" id="result-area" style="resize:none" rows="3">@ShortURl</textarea>
 			</div>
 	</div>
 </div>
 
 @code
 {
-	private URLShortenAspire.Web.Models.URLShortenRequest? Model { get; set; }
+	private URLShortenAspire.Web.Models.URLShortenRequest? Model { get; set; } = new();
 	private bool IsShow { get; set; }
+	private string ShortURl { get; set; } = default!;
 
-	protected override void OnInitialized()
-	{
-		Model ??= new();
-		IsShow = false;
-	}
 
-	private void FormSubmitted()
+	private async Task FormSubmitted()
 	{
 		Logger.LogInformation("Form submitted");
 
 		IsShow = !IsShow;
+		ShortURl = await API.ShortURL(Model!.Url);
+
 	}
 }
