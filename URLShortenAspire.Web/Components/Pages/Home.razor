@@ -1,37 +1,37 @@
-﻿@page "/"
+﻿@page "/short"
 @inject ILogger<Program> Logger
 
 <PageTitle>URLShorten</PageTitle>
 
 <div class="d-flex align-items-center justify-content-center w-100 h-100">
 	<div class="w-25 p-3 rounded-3" style="background-color: #eee;">
-		<EditForm Model="@Model" OnSubmit="@FormSubmitted" FormName="UrlShortenForm" >
 			<label for="exampleFormControlInput1" class="form-label">Url to Short</label>
 			<div class="mb-3 input-group">
 				<input type="url" class="form-control d-inline-block mb-lg-0" placeholder="Put your URL in" @bind-value="Model!.Url">
-				<button class="btn btn-primary" type="submit">Shorten</button>
+				<button class="btn btn-primary" type="button" @onclick="FormSubmitted">Shorten</button>
 			</div>
 			<div class="mb-3" style="@(IsShow ? "" : "display:none")">
 				<label for="exampleFormControlTextarea1" class="form-label">Result</label>
 				<textarea disabled class="form-control" id="result-area" style="resize:none" rows="3"></textarea>
 			</div>
-		</EditForm>
 	</div>
 </div>
 
 @code
 {
-	private URLShortenAspire.Web.Models.URLShortenRequest? Model { get; set; } = new();
+	private URLShortenAspire.Web.Models.URLShortenRequest? Model { get; set; }
 	private bool IsShow { get; set; }
 
-	void FormSubmitted()
+	protected override void OnInitialized()
 	{
-		Logger.LogInformation(IsShow.ToString());
+		Model ??= new();
+		IsShow = false;
+	}
 
+	private void FormSubmitted()
+	{
 		Logger.LogInformation("Form submitted");
 
 		IsShow = !IsShow;
-
-		Logger.LogInformation(IsShow.ToString());
 	}
 }

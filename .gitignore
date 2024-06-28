@@ -364,3 +364,4 @@ FodyWeavers.xsd
 *.bak
 /URLShortenAspire.ApiService/appsettings.Development.json
 /URLShortenAspire.AppHost/appsettings.Development.json
+/URLShortenAspire.Web/appsettings.Development.json
