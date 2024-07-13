@@ -10,6 +10,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "URLShortenAspire.ApiService
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "URLShortenAspire.Web", "URLShortenAspire.Web\URLShortenAspire.Web.csproj", "{59B12758-160A-41AB-B5F6-A1E42E31B4EF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "URLShortenAspire.DB", "URLShortenAspire.DB\URLShortenAspire.DB.csproj", "{F941CA7E-6FA1-4CDC-8DD6-05BEE1FC3037}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -32,6 +34,10 @@ Global
 		{59B12758-160A-41AB-B5F6-A1E42E31B4EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{59B12758-160A-41AB-B5F6-A1E42E31B4EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{59B12758-160A-41AB-B5F6-A1E42E31B4EF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F941CA7E-6FA1-4CDC-8DD6-05BEE1FC3037}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F941CA7E-6FA1-4CDC-8DD6-05BEE1FC3037}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F941CA7E-6FA1-4CDC-8DD6-05BEE1FC3037}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F941CA7E-6FA1-4CDC-8DD6-05BEE1FC3037}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

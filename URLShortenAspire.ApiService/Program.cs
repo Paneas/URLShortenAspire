@@ -1,4 +1,6 @@
 using Microsoft.AspNetCore.HttpLogging;
+using Microsoft.EntityFrameworkCore;
+using URLShortenAspire.DB;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -32,5 +34,11 @@ app.MapGet("/shorten", (string url) =>
 });
 
 app.MapDefaultEndpoints();
+
+using (var serviceScope = app.Services.GetRequiredService<IServiceScopeFactory>().CreateScope())
+{
+	var context = serviceScope.ServiceProvider.GetService<DBContext>()!;
+	context.Database.Migrate();
+}
 
 app.Run();
