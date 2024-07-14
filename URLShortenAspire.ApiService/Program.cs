@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.HttpLogging;
 using Microsoft.EntityFrameworkCore;
+using URLShortenAspire.DAL.Units;
 using URLShortenAspire.DB;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,6 +10,8 @@ builder.AddServiceDefaults();
 
 // Add services to the container.
 builder.Services.AddProblemDetails();
+
+builder.Services.AddScoped<UnitOfWork>();
 
 builder.Services.AddHttpLogging(logging =>
 {
@@ -23,14 +26,26 @@ var app = builder.Build();
 app.UseHttpLogging();
 app.UseExceptionHandler();
 
-app.MapGet("/{short}", (string url) =>
+app.MapGet("/{shortUrl}", (UnitOfWork unitOfWork, Guid shortUrl) =>
 {
-	return url;
+	var ent = unitOfWork.UrlRepository.GetById(shortUrl);
+
+	return ent;
 });
 
-app.MapGet("/shorten", (string url) =>
+app.MapGet("/shorten", (UnitOfWork unitOfWork, string url) =>
 {
-	return url;
+	unitOfWork.BeginTransaction();
+
+	var upd = unitOfWork.UrlRepository.Add(new URLShortenAspire.Models.Database.URLEntity
+	{
+		OriginalURL = url,
+		Shorten = url
+	});
+
+	unitOfWork.Commit();
+
+	return upd;
 });
 
 app.MapDefaultEndpoints();
