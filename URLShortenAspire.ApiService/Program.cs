@@ -26,9 +26,9 @@ var app = builder.Build();
 app.UseHttpLogging();
 app.UseExceptionHandler();
 
-app.MapGet("/{shortUrl}", (UnitOfWork unitOfWork, Guid shortUrl) =>
+app.MapGet("/{shortUrl}", (UnitOfWork unitOfWork, string shortUrl) =>
 {
-	var ent = unitOfWork.UrlRepository.GetById(shortUrl);
+	var ent = unitOfWork.UrlRepository.Get(url => url.Shorten == shortUrl);
 
 	return ent;
 });

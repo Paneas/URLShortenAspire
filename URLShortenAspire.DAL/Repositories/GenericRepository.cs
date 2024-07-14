@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System.Linq.Expressions;
 using URLShortenAspire.DB;
 using URLShortenAspire.Models.Database;
 
@@ -16,6 +17,8 @@ namespace URLShortenAspire.DAL.Repositories
 		}
 
 		public TEntity? GetById(Guid id) => _dbSet.Find(id);
+
+		public TEntity? Get(Expression<Func<TEntity, bool>> filter) => _dbSet.FirstOrDefault(filter);
 
 		public IEnumerable<TEntity> GetAll() => _dbSet.ToList();
 
