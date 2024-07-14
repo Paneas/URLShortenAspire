@@ -9,5 +9,6 @@ namespace URLShortenAspire.DB
 		{ }
 
 		public DbSet<URLEntity> URLS { get; set; }
+
 	}
 }

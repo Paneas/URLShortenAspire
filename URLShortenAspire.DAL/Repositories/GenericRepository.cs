@@ -19,9 +19,18 @@ namespace URLShortenAspire.DAL.Repositories
 
 		public IEnumerable<TEntity> GetAll() => _dbSet.ToList();
 
-		public TEntity Add(TEntity entity) => _dbSet.Add(entity).Entity;
+		public TEntity Add(TEntity entity)
+		{
 
-		public TEntity Update(TEntity entity) => _dbSet.Update(entity).Entity;
+			entity.CreatedAt = DateTime.UtcNow;
+			return _dbSet.Add(entity).Entity;
+		}
+
+		public TEntity Update(TEntity entity)
+		{
+			entity.UpdatedAt = DateTime.UtcNow;
+			return _dbSet.Update(entity).Entity;
+		}
 
 		public void Delete(TEntity entity) => _dbSet.RemoveRange(entity);
 	}
