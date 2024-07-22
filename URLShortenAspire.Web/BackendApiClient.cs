@@ -9,7 +9,7 @@ public class BackendApiClient(HttpClient httpClient)
 
 		string shortedURL = await response.Content.ReadAsStringAsync(cancellationToken) ?? "";
 
-		return shortedURL;
+		return shortedURL.Replace("\"", "");
 	}
 }
 

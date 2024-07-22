@@ -1,5 +1,4 @@
 using Microsoft.AspNetCore.HttpLogging;
-using Microsoft.EntityFrameworkCore;
 using URLShortenAspire.Core;
 using URLShortenAspire.DAL.Units;
 using URLShortenAspire.DB;
@@ -36,14 +35,14 @@ app.MapGet("/{shortUrl}", (ShortenService urlService, string shortUrl) =>
 	if (ent is null)
 		return Results.NotFound();
 
-	return Results.Ok(ent);
+	return Results.Redirect(ent);
 });
 
-app.MapGet("/shorten", (ShortenService urlService, string url) =>
+app.MapGet("/shorten", (HttpContext context, ShortenService urlService, string url) =>
 {
 	URLEntity upd = urlService.ShorternUrl(url);
 
-	return Results.Ok(upd);
+	return Results.Ok("https://" + context.Request.Host + "/" + upd.Shorten);
 });
 
 app.MapDefaultEndpoints();
@@ -51,7 +50,7 @@ app.MapDefaultEndpoints();
 using (var serviceScope = app.Services.GetRequiredService<IServiceScopeFactory>().CreateScope())
 {
 	var context = serviceScope.ServiceProvider.GetService<DBContext>()!;
-	context.Database.Migrate();
+	context.Database.EnsureCreated();
 }
 
 app.Run();

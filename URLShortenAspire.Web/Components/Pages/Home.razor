@@ -29,8 +29,7 @@
 	{
 		Logger.LogInformation("Form submitted");
 
-		IsShow = !IsShow;
 		ShortURl = await API.ShortURL(Model!.Url);
-
+		IsShow = !IsShow;
 	}
 }

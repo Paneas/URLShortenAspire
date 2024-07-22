@@ -1,6 +1,8 @@
 var builder = DistributedApplication.CreateBuilder(args);
 
-var postgres = builder.AddPostgres("postgres");
+var postgres = builder.AddPostgres("postgres")
+					 .WithPgAdmin();
+
 var postgresdb = postgres.AddDatabase("urlsDB");
 
 var apiService = builder.AddProject<Projects.URLShortenAspire_ApiService>("apiservice")

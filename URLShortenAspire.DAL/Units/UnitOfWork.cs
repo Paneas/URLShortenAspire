@@ -20,14 +20,9 @@ namespace URLShortenAspire.DAL.Units
 			}
 		}
 
-		public void BeginTransaction()
+		public void Save()
 		{
-			_context.Database.BeginTransaction();
-		}
-
-		public void Commit()
-		{
-			_context.Database.CommitTransaction();
+			_context.SaveChanges();
 		}
 	}
 }
