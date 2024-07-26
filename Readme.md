@@ -1,18 +1,18 @@
 # URL Shortener using Aspire
-This project was created so I can experiment with the .NET Asper
+This project was created so I can experiment with the .NET Aspire
 
 Essentially what I wanted to create was the following:
 
 - A simple front-end
-- A SQL Lite Database
-- Redis for Cache (TBA)
-- 
+- A backend api
+- A PostgreSQL Database
+- Redis Cache
 
 # Technologies / Libraries
 - .NET 8
 - Blazor
 - Aspire
-- SQL Lite
+- PostgreSQL
 - Redis
 
 # How to run
