@@ -9,6 +9,8 @@ var builder = WebApplication.CreateBuilder(args);
 // Add service defaults & Aspire components.
 builder.AddServiceDefaults();
 
+builder.AddRedisDistributedCache("cache");
+
 // Add services to the container.
 builder.Services.AddProblemDetails();
 
@@ -28,9 +30,9 @@ var app = builder.Build();
 app.UseHttpLogging();
 app.UseExceptionHandler();
 
-app.MapGet("/{shortUrl}", (ShortenService urlService, string shortUrl) =>
+app.MapGet("/{shortUrl}", async (ShortenService urlService, string shortUrl) =>
 {
-	var ent = urlService.GetFullUrl(shortUrl);
+	var ent = await urlService.GetFullUrl(shortUrl);
 
 	if (ent is null)
 		return Results.NotFound();

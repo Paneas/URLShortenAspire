@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Aspire.StackExchange.Redis.DistributedCaching" Version="8.1.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\URLShortenAspire.Core\URLShortenAspire.Core.csproj" />
     <ProjectReference Include="..\URLShortenAspire.DB\URLShortenAspire.DB.csproj" />
     <ProjectReference Include="..\URLShortenAspire.Models\URLShortenAspire.Models.csproj" />
